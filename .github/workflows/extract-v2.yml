@@ -26,6 +26,11 @@ jobs:
       - run: pwd
       - run: tree -a -I .git
       - run: echo "The input path is:[${{ inputs.path }}]"
+      - name: Install system dependencies for leveldb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ make libleveldb-dev python3-dev
+      - run: pip install --upgrade pip setuptools wheel   # 可选，推荐
       - run: pip install leveldb
       - run: python py-2.py "${{ inputs.path }}"
       - run: tree -a -I .git
